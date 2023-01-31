@@ -41,20 +41,19 @@ public class Main {
     {
         ArrayList<Integer> temp = new ArrayList<>();
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
-        list.add(new ArrayList<>());
 
+        list.add(new ArrayList<>());
         //TODO replace the i = 1 with a more future-proof alternative
         for(int i = 1; i < dataMap.size(); i++)
         {
             temp = dataMap.get(i);
 
+
             System.out.println("The array provided "+temp.toString());
             for(int j = 0; j < temp.size(); j++)
             {
-
-                //Not sure if I need this or not
-                //if(!list.get(0).contains(temp.get(j)))
-                        list.get(0).add(temp.get(j));
+                list.add(new ArrayList<>());
+                list.get(j).add(temp.get(j));
             }
 
         }
@@ -65,7 +64,7 @@ public class Main {
 
 
     //This method is to count all the possible combinations
-    private static HashMap<Integer, Double> countNum(ArrayList<ArrayList<Integer>> list)
+    private static HashMap<Integer, Double> countNum(ArrayList<ArrayList<Integer>> list, HashMap<Integer, ArrayList<Integer>> dataMap)
     {
         HashMap<Integer, Double> countList = new HashMap<>();
         for(ArrayList tempArray: list)
@@ -92,15 +91,24 @@ public class Main {
 
     private static void permiations(ArrayList<ArrayList<Integer>> list)
     {
-        int start = 0;
-        for(int i = start; i < list.size()-1; i++)
+
+        ArrayList<ArrayList<Integer>> temp = new ArrayList<>();
+        int count = 0;
+        for(int i = 0; i < list.size()-1; i++)
         {
-            list.get(i).addAll(list.get(i+1));
+            for(int j = 0; j < list.size()-(j+1); j++)
+            {
+                temp.add(new ArrayList<>());
+                temp.get(count).addAll(list.get((i)));
+                temp.get(count).addAll(list.get(j+1));
+                count++;
+            }
+
 
         }
 
 
-        System.out.println("Permiations "+list.toString());
+        System.out.println("Permiations "+temp.toString());
 
 
     }
@@ -114,9 +122,20 @@ public class Main {
         File f = new File("C:\\Users\\Mrwil\\Documents\\MyCode\\Java\\CPSC473\\Apriori\\src\\Datasets\\data.txt");
 
         ArrayList<ArrayList<Integer>> list = new ArrayList<>();
-        list = listNum(readFile(f));
+        HashMap<Integer, ArrayList<Integer>> dataMap = new HashMap<>();
+        //list = listNum(readFile(f));
 
-        countNum(list);
+        //countNum(list);
+        list.add(new ArrayList<>());
+        list.get(0).add(0);
+        list.add(new ArrayList<>());
+        list.get(1).add(1);
+        list.add(new ArrayList<>());
+        list.get(2).add(2);
+        list.add(new ArrayList<>());
+        list.get(3).add(3);
+
+        countNum(list, dataMap);
         permiations(list);
         
         
