@@ -1,6 +1,8 @@
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ListCreation {
 
@@ -34,7 +36,9 @@ public class ListCreation {
         //Moving the dataset to the list
         temp = 0;
         for (int x : tempList.keySet()) {
-            listItem.list.add(new ArrayList<>());
+
+            Set<Integer> tempSet = new HashSet<>();
+            listItem.list.add(tempSet);
             listItem.list.get(temp).add(x);
             temp++;
         }
@@ -44,10 +48,7 @@ public class ListCreation {
         return listItem;
     }
 
-    public static ListOfItems listCreation(ListOfItems listItem)
-    {
-        return listItem;
-    }
+
 
 
 
