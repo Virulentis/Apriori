@@ -24,7 +24,9 @@ public class Combinations {
 
 
         }
-        System.out.println("Permiations "+temp.toString());
+//        System.out.println("Permiations "+temp.toString());
+        temp.removeAll(itemList.removedCanadates);
+
         itemList.list = temp;
 
         return itemList;

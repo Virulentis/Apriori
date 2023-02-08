@@ -24,7 +24,7 @@ public class CountItems {
             }
         }
 
-        System.out.println("Counted Items: " + itemList.countOfItems.toString());
+//        System.out.println("Counted Items: " + itemList.countOfItems.toString());
         return itemList;
     }
 
@@ -44,7 +44,8 @@ public class CountItems {
             if((entry.getValue()/size) < (double) minSup/100)
             {
 
-                itemList.list.remove((int) entry.getKey() - numRem);
+                itemList.removedCanadates.add(itemList.list.remove((int) entry.getKey() - numRem));
+
                 iterator.remove();
 
                 numRem++;
@@ -52,13 +53,18 @@ public class CountItems {
             }
             else
             {
-                System.out.print(" "+entry.getKey()+" ");
+                System.out.print(" "+itemList.list.get(entry.getKey()-numRem)+" ");
                 iterator.remove();
             }
         }
 
+//        System.out.println("bad values" + itemList.removedCanadates.toString());
+        itemList.removedCanadates.addAll(itemList.list);
 
-        System.out.println("\npruned: "+itemList.list.toString());
+
+//        System.out.println("all values" + itemList.removedCanadates.toString());
+
+//        System.out.println("\npruned: "+itemList.list.toString());
         return itemList;
     }
 

@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
 
 //        File f = new File("D:\\java\\473\\Apriori2\\src\\Datasets\\data.txt");
-        File f = new File("C:\\Users\\Mrwil\\Documents\\MyCode\\Java\\CPSC473\\Apriori\\src\\Datasets\\data.txt");
+        File f = new File("C:\\Users\\Mrwil\\Documents\\MyCode\\Java\\CPSC473\\Apriori\\src\\Datasets\\retail.txt");
 
 
         ArrayList<ArrayList<Integer>> dataMap =  new ArrayList<>();
@@ -20,7 +20,7 @@ public class Main {
 
         dataMap = ReadFile.readFile(f);
         itemList = ListCreation.firstList(itemList, dataMap);
-        System.out.println(itemList.list.toString());
+//        System.out.println(itemList.list.toString());
         CountItems.count(itemList, dataMap);
         CountItems.prune(itemList, minSup);
 
@@ -31,8 +31,8 @@ public class Main {
 
 
 
-//        while(itemList.list.size() > 1)
-        for(int i = 0; i < 9; i++)
+        while(itemList.list.size() > 1)
+//        for(int i = 0; i < 9; i++)
         {
             Combinations.permiations(itemList);
             CountItems.count(itemList, dataMap);
