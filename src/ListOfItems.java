@@ -19,22 +19,18 @@ public class ListOfItems {
      * counts the items in list that are in datamap
      *
      * @param itemList a datatype that holds the list of items, items removed previously and count of items
-     * @param dataMap the item order number and list provided from the original file
-     * @return the count of the items
+     * @param dataMap  the item order number and list provided from the original file
      */
-    public static ListOfItems count(ListOfItems itemList, ArrayList<ArrayList<Integer>> dataMap) {
+    public static void count(ListOfItems itemList, ArrayList<ArrayList<Integer>> dataMap) {
 
-        for(int i = 0; i < dataMap.size(); i++)
-        {
-            for(int j = 0; j < itemList.list.size(); j++)
-            {
-                if(dataMap.get(i).containsAll(itemList.list.get(j)))
-                    if(itemList.countOfItems.putIfAbsent(j, 1) != null)
+        for (ArrayList<Integer> integers : dataMap) {
+            for (int j = 0; j < itemList.list.size(); j++) {
+                if (integers.containsAll(itemList.list.get(j)))
+                    if (itemList.countOfItems.putIfAbsent(j, 1) != null)
                         itemList.countOfItems.put(j, itemList.countOfItems.get(j) + 1);
             }
         }
 
-        return itemList;
     }
 
 
@@ -42,10 +38,9 @@ public class ListOfItems {
      * removes any items that is not equal to or above the minimum support threshold
      *
      * @param itemList a datatype that holds the list of items, items removed previously and count of items
-     * @param minSup the minimum support threshold
-     * @return a list of items without the previously removed candidates and values that don't have minsup
+     * @param minSup   the minimum support threshold
      */
-    public static ListOfItems prune(ListOfItems itemList, int minSup, ArrayList<ArrayList<Integer>> datamap)
+    public static void prune(ListOfItems itemList, int minSup, ArrayList<ArrayList<Integer>> datamap)
     {
         Iterator<Map.Entry<Integer, Integer>> iterator = itemList.countOfItems.entrySet().iterator();
 
@@ -72,7 +67,6 @@ public class ListOfItems {
                 iterator.remove();
             }
         }
-        return itemList;
     }
 
 }

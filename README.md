@@ -13,3 +13,5 @@ to output the frequent itemsets, and time it took.
 the command to run the project is `java apriori ./file.txt 10` where file.txt is the file that holds the database
 and 10 is the minimum support threshold. 
 
+## compilation
+the files Apriori, Combinations, FileReadWrite, ListCreation, ListOfItems and Stopwatch must be compiled for the program to work
