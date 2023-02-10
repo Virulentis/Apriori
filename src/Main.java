@@ -15,28 +15,29 @@ public class Main {
      */
     public static void main(String[] args) throws IOException {
 
-        File file;
-        int minSup;
+        File file = null;
+        int minSup = 0;
 
 
         if(args.length != 2 )
         {
-//            System.out.println("Please provide two arguments, the filepath and the minimum support threshold");
-//            System.exit(0);
-            minSup = 25;
-            file = new File("D:\\java\\473\\Apriori2\\src\\Datasets\\retail.txt");
+            System.out.println("Please provide two arguments, the filepath and the minimum support threshold");
+            System.exit(0);
 
         }
         else
         {
             minSup = Integer.parseInt(args[1]);
+            if(minSup < 0 || minSup > 100)
+            {
+                System.out.println("Minimum support must be between 0-100");
+                System.exit(0);
+            }
             file = new File(args[0]);
         }
 
 
         startMine(file, minSup);
-
-
 
     }
 
@@ -60,7 +61,7 @@ public class Main {
         dataMap = FileReadWrite.readFile(filepath);
         ListCreation.firstList(itemList, dataMap);
         ListOfItems.count(itemList, dataMap);
-        ListOfItems.prune(itemList, minSup);
+        ListOfItems.prune(itemList, minSup, dataMap);
 
 
 
@@ -68,7 +69,7 @@ public class Main {
         {
             Combinations.combinations(itemList);
             ListOfItems.count(itemList, dataMap);
-            ListOfItems.prune(itemList, minSup);
+            ListOfItems.prune(itemList, minSup, dataMap);
 
         }
 

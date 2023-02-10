@@ -45,11 +45,11 @@ public class ListOfItems {
      * @param minSup the minimum support threshold
      * @return a list of items without the previously removed candidates and values that don't have minsup
      */
-    public static ListOfItems prune(ListOfItems itemList, int minSup)
+    public static ListOfItems prune(ListOfItems itemList, int minSup, ArrayList<ArrayList<Integer>> datamap)
     {
         Iterator<Map.Entry<Integer, Integer>> iterator = itemList.countOfItems.entrySet().iterator();
-        Double size = 0.0;
-        size += itemList.countOfItems.size();
+
+        Double size = (double) datamap.size();
         int numRem = 0;
 
 
