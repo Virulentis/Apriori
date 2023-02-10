@@ -1,13 +1,15 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Combinations {
 
-
+    /**
+     * Joins the current list together then removes any duplicates or subsets of infrequent itemsets
+     *
+     * @param itemList a datatype that holds the list of items, items removed previously and count of items
+     * @return the new candidate set
+     */
     public static ListOfItems permiations(ListOfItems itemList)
     {
-
         ArrayList<Set<Integer>> temp = new ArrayList<>();
         int count = 0;
 
@@ -15,20 +17,31 @@ public class Combinations {
         {
             for(int j = i+1; j < itemList.list.size(); j++)
             {
-                Set<Integer> temp2 = new HashSet<>();
-                temp.add(temp2);
+                temp.add(new HashSet<>());
                 temp.get(count).addAll(itemList.list.get((i)));
                 temp.get(count).addAll(itemList.list.get(j));
                 count++;
             }
-
-
         }
-//        System.out.println("Permiations "+temp.toString());
-        temp.removeAll(itemList.removedCanadates);
 
+        //Adds all the items into a set to remove duplicates
+        Set<Set<Integer>> removeDup = new HashSet<>(temp);
+        temp.clear();
+        temp.addAll(removeDup);
+
+
+        for(Set<Integer> x: removeDup) {
+            for (Set<Integer> y: itemList.removedCanadates) {
+                if (x.containsAll(y)) {
+                    temp.remove(x);
+                    break;
+                }
+            }
+        }
+
+
+        itemList.removedCanadates.clear();
         itemList.list = temp;
-
         return itemList;
     }
 }

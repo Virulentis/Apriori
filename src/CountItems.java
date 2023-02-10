@@ -2,69 +2,66 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
+
 public class CountItems {
 
-
+    /**
+     * counts the items in list that are in datamap
+     *
+     * @param itemList a datatype that holds the list of items, items removed previously and count of items
+     * @param dataMap the item order number and list provided from the original file
+     * @return the count of the items
+     */
     public static ListOfItems count(ListOfItems itemList, ArrayList<ArrayList<Integer>> dataMap) {
-
 
         for(int i = 0; i < dataMap.size(); i++)
         {
             for(int j = 0; j < itemList.list.size(); j++)
             {
-
                 if(dataMap.get(i).containsAll(itemList.list.get(j)))
-                {
-//                    System.out.println("HIT: Temp val "+itemList.list.get(j).toString() + " itemList: "+itemList.list.get(j).toString()+" datamap: "+ dataMap.get(i).toString());
-                    if(itemList.countOfItems.get(j) == null)
-                        itemList.countOfItems.put(j, 1);
-                    else
+                    if(itemList.countOfItems.putIfAbsent(j, 1) != null)
                         itemList.countOfItems.put(j, itemList.countOfItems.get(j) + 1);
-                }
             }
         }
 
-//        System.out.println("Counted Items: " + itemList.countOfItems.toString());
         return itemList;
     }
 
 
+    /**
+     * removes any items that is not equal to or above the minimum support threshold
+     *
+     * @param itemList a datatype that holds the list of items, items removed previously and count of items
+     * @param minSup the minimum support threshold
+     * @return
+     */
     public static ListOfItems prune(ListOfItems itemList, int minSup)
     {
         Iterator<Map.Entry<Integer, Integer>> iterator = itemList.countOfItems.entrySet().iterator();
         Double size = 0.0;
-        int numRem = 0;
         size += itemList.countOfItems.size();
+        int numRem = 0;
 
-        while (iterator.hasNext())
+
+        while (iterator.hasNext() && size > 1)
         {
             Map.Entry<Integer, Integer> entry = iterator.next();
-
-
+            //If they are not in minsup
             if((entry.getValue()/size) < (double) minSup/100)
             {
-
                 itemList.removedCanadates.add(itemList.list.remove((int) entry.getKey() - numRem));
-
                 iterator.remove();
-
                 numRem++;
-
             }
+
+            //If they are in minsup
             else
             {
-                System.out.print(" "+itemList.list.get(entry.getKey()-numRem)+" ");
+                itemList.itemsFound++;
+                itemList.output = itemList.output  + itemList.list.get(entry.getKey()-numRem) + " : " + entry.getValue() + "\n";
                 iterator.remove();
             }
         }
-
-//        System.out.println("bad values" + itemList.removedCanadates.toString());
-        itemList.removedCanadates.addAll(itemList.list);
-
-
-//        System.out.println("all values" + itemList.removedCanadates.toString());
-
-//        System.out.println("\npruned: "+itemList.list.toString());
         return itemList;
     }
 
@@ -74,41 +71,3 @@ public class CountItems {
 
 
 
-//This method is to count all the possible combinations
-    /*
-
-
-    for (Object i : itemList.countOfItems.keySet()) {
-
-            // checking the minsup
-            //TODO: add the removed canadates to the removed list
-            if((Double) itemList.countOfItems.get(i)/(itemList.countOfItems.size()) < minSup/100)
-            {
-                System.out.print(" "+itemList.countOfItems.get(i) + ":r ");
-                itemList.countOfItems.remove(i);
-                itemList.list.remove(i);
-
-            }
-            else
-            {
-                System.out.print(" "+ itemList.countOfItems.remove(i) +":p");
-            }
-
-            System.out.println();
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    */

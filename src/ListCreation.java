@@ -1,4 +1,5 @@
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,29 +8,28 @@ import java.util.Set;
 public class ListCreation {
 
 
+    /**
+     * creates the first list of apriori algorithm,
+     * which holds the items for the candidate set
+     *
+     * @param listItem a datatype that holds the list of items, items removed previously and count of items
+     * @param dataMap the item order number and list provided from the original file
+     * @return
+     */
+    public static ListOfItems firstList(ListOfItems listItem, ArrayList<ArrayList<Integer>> dataMap) {
 
-
-    public static ListOfItems firstList(ListOfItems listItem, ArrayList<ArrayList<Integer>> dataMap)
-    {
-//        ArrayList<ArrayList<Integer>> temp = new ArrayList<>();
-//        temp = listItem.list;
         HashMap<Integer, Double> tempList = new HashMap<>();
-        int temp = 0;
+        int temp;
 
-        for(int i = 0; i < dataMap.size(); i++)
-        {
-            for(int j = 0; j < dataMap.get(i).size(); j++)
-            {
-                temp = dataMap.get(i).get(j);
-                if(tempList.containsKey(temp))
-                {
-                    tempList.put(temp,tempList.get(temp)+1);
-                }
+        for (ArrayList<Integer> integers : dataMap) {
+
+            for (Integer integer : integers) {
+
+                temp = integer;
+                if (tempList.containsKey(temp))
+                    tempList.put(temp, tempList.get(temp) + 1);
                 else
-                {
                     tempList.put(temp, 1.0);
-                }
-
             }
         }
 
@@ -44,52 +44,25 @@ public class ListCreation {
         }
 
 
-
         return listItem;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*private static ArrayList<ArrayList<Integer>> listNum(HashMap<Integer, ArrayList<Integer>> dataMap)
-    {
-        ArrayList<Integer> temp = new ArrayList<>();
-        ArrayList<ArrayList<Integer>> list = new ArrayList<>();
-
-        list.add(new ArrayList<>());
-        //TODO replace the i = 1 with a more future-proof alternative
-        for(int i = 1; i < dataMap.size(); i++)
-        {
-            temp = dataMap.get(i);
-
-
-            System.out.println("The array provided "+temp.toString());
-            for(int j = 0; j < temp.size(); j++)
-            {
-                list.add(new ArrayList<>());
-                list.get(j).add(temp.get(j));
-            }
-
-        }
-        System.out.println("The list is: "+list.toString());
-
-        return list;
-    }*/
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
