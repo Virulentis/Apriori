@@ -6,9 +6,8 @@ public class Combinations {
      * Joins the current list together then removes any duplicates or subsets of infrequent itemsets
      *
      * @param itemList a datatype that holds the list of items, items removed previously and count of items
-     * @return the new candidate set
      */
-    public static ListOfItems permiations(ListOfItems itemList)
+    public static void combinations(ListOfItems itemList)
     {
         ArrayList<Set<Integer>> temp = new ArrayList<>();
         int count = 0;
@@ -42,6 +41,5 @@ public class Combinations {
 
         itemList.removedCanadates.clear();
         itemList.list = temp;
-        return itemList;
     }
 }

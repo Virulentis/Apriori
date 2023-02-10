@@ -1,10 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class ReadFile {
+public class FileReadWrite {
 
     /**
      * Reads through the file provided and returns the item order number,
@@ -35,4 +37,17 @@ public class ReadFile {
 
         return dataMap;
     }
+
+
+    public static void writeFile(int itemsFound, String output) throws IOException {
+        File newFile = new File("Output.txt");
+        FileWriter writer = new FileWriter(newFile);
+        System.out.println();
+        writer.write("\n|FPs| = " + itemsFound + "\n" + output);
+
+
+
+    }
+
+
 }
