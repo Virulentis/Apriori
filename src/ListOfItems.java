@@ -2,8 +2,8 @@ import java.util.*;
 
 /**
  * The object that holds the
- * previously removed candidates, the current canadates
- * the count of the current canadates
+ * previously removed candidates, the current candidates
+ * the count of the current candidates
  * as well as the output string and amount of items found
  */
 public class ListOfItems {
