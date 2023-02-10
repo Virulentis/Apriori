@@ -1,5 +1,3 @@
-
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,7 +12,7 @@ public class ListCreation {
      *
      * @param listItem a datatype that holds the list of items, items removed previously and count of items
      * @param dataMap the item order number and list provided from the original file
-     * @return
+     * @return listItem with the first list added
      */
     public static ListOfItems firstList(ListOfItems listItem, ArrayList<ArrayList<Integer>> dataMap) {
 

@@ -23,8 +23,8 @@ public class Main {
         {
 //            System.out.println("Please provide two arguments, the filepath and the minimum support threshold");
 //            System.exit(0);
-            minSup = 20;
-            file = new File("D:\\java\\473\\Apriori2\\src\\Datasets\\data.txt");
+            minSup = 25;
+            file = new File("D:\\java\\473\\Apriori2\\src\\Datasets\\retail.txt");
 
         }
         else
@@ -37,25 +37,43 @@ public class Main {
         startMine(file, minSup);
 
 
+
     }
+
+    /**
+     * The method starts the timer and the other methods to mine the dataset
+     * once there is one or less items in the item list it will
+     * stop the timer and call the method to write in the file
+     *
+     * @param filepath the file that has the mining dataset
+     * @param minSup the minimum support threshold
+     * @throws IOException
+     */
     public static void startMine(File filepath, int minSup) throws IOException {
+        Stopwatch sc = new Stopwatch();
+        sc.start();
+
         ArrayList<ArrayList<Integer>> dataMap;
         ListOfItems itemList = new ListOfItems();
 
+
         dataMap = FileReadWrite.readFile(filepath);
         ListCreation.firstList(itemList, dataMap);
-        CountItems.count(itemList, dataMap);
-        CountItems.prune(itemList, minSup);
+        ListOfItems.count(itemList, dataMap);
+        ListOfItems.prune(itemList, minSup);
+
 
 
         while(itemList.list.size() > 1)
         {
             Combinations.combinations(itemList);
-            CountItems.count(itemList, dataMap);
-            CountItems.prune(itemList, minSup);
+            ListOfItems.count(itemList, dataMap);
+            ListOfItems.prune(itemList, minSup);
+
         }
 
+        sc.stop();
 
-        FileReadWrite.writeFile(itemList.itemsFound, itemList.output);
+        FileReadWrite.writeFile(itemList.itemsFound, itemList.output, sc.getSec());
     }
 }
